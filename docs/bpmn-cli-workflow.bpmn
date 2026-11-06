@@ -16,7 +16,7 @@
       <bpmn:incoming>Flow_4</bpmn:incoming>
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_Validate" name="bpmn validate">
+    <bpmn:serviceTask id="Task_Validate" name="bpmn validate --style">
       <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -37,98 +37,98 @@
     <bpmn:endEvent id="End" name="終了">
       <bpmn:incoming>Flow_9</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Init"/>
-    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Init" targetRef="Gateway_Edit"/>
-    <bpmn:sequenceFlow id="Flow_3" sourceRef="Gateway_Edit" targetRef="Task_Edit"/>
-    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Edit" targetRef="Task_Layout"/>
-    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Layout" targetRef="Task_Validate"/>
-    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Validate" targetRef="Gateway_Errors"/>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Init" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Init" targetRef="Gateway_Edit" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Gateway_Edit" targetRef="Task_Edit" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Edit" targetRef="Task_Layout" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Layout" targetRef="Task_Validate" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Validate" targetRef="Gateway_Errors" />
     <bpmn:sequenceFlow id="Flow_7" name="エラーあり" sourceRef="Gateway_Errors" targetRef="Gateway_Edit">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">error</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_8" name="エラーなし" sourceRef="Gateway_Errors" targetRef="Task_Export"/>
-    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_Export" targetRef="End"/>
+    <bpmn:sequenceFlow id="Flow_8" name="エラーなし" sourceRef="Gateway_Errors" targetRef="Task_Export" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_Export" targetRef="End" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Process_BpmnCli">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_BpmnCli" bpmnElement="Process_BpmnCli">
       <bpmndi:BPMNShape id="BPMNShape_Start" bpmnElement="Start">
-        <dc:Bounds x="80" y="102" width="36" height="36"/>
+        <dc:Bounds x="80" y="102" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="89" y="143" width="18" height="14"/>
+          <dc:Bounds x="89" y="143" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_Init" bpmnElement="Task_Init">
-        <dc:Bounds x="200" y="80" width="100" height="80"/>
+        <dc:Bounds x="200" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_Edit" bpmnElement="Task_Edit">
-        <dc:Bounds x="460" y="80" width="100" height="80"/>
+        <dc:Bounds x="460" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_Layout" bpmnElement="Task_Layout">
-        <dc:Bounds x="460" y="280" width="100" height="80"/>
+        <dc:Bounds x="460" y="280" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_Validate" bpmnElement="Task_Validate">
-        <dc:Bounds x="580" y="280" width="100" height="80"/>
+        <dc:Bounds x="580" y="280" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Gateway_Edit" bpmnElement="Gateway_Edit" isMarkerVisible="true">
-        <dc:Bounds x="340" y="95" width="50" height="50"/>
+        <dc:Bounds x="340" y="95" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Gateway_Errors" bpmnElement="Gateway_Errors" isMarkerVisible="true">
-        <dc:Bounds x="700" y="295" width="50" height="50"/>
+        <dc:Bounds x="700" y="295" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="689" y="276" width="72" height="14"/>
+          <dc:Bounds x="689" y="276" width="72" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Task_Export" bpmnElement="Task_Export">
-        <dc:Bounds x="820" y="280" width="100" height="80"/>
+        <dc:Bounds x="820" y="280" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_End" bpmnElement="End">
-        <dc:Bounds x="940" y="302" width="36" height="36"/>
+        <dc:Bounds x="940" y="302" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="949" y="343" width="18" height="14"/>
+          <dc:Bounds x="949" y="343" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_1" bpmnElement="Flow_1">
-
-
-      <di:waypoint x="116" y="120"/><di:waypoint x="200" y="120"/></bpmndi:BPMNEdge>
+        <di:waypoint x="116" y="120" />
+        <di:waypoint x="200" y="120" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_2" bpmnElement="Flow_2">
-
-
-      <di:waypoint x="300" y="120"/><di:waypoint x="340" y="120"/></bpmndi:BPMNEdge>
+        <di:waypoint x="300" y="120" />
+        <di:waypoint x="340" y="120" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_3" bpmnElement="Flow_3">
-
-
-      <di:waypoint x="390" y="120"/><di:waypoint x="460" y="120"/></bpmndi:BPMNEdge>
+        <di:waypoint x="390" y="120" />
+        <di:waypoint x="460" y="120" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_4" bpmnElement="Flow_4">
-
-
-      <di:waypoint x="510" y="160"/><di:waypoint x="510" y="280"/></bpmndi:BPMNEdge>
+        <di:waypoint x="510" y="160" />
+        <di:waypoint x="510" y="280" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_5" bpmnElement="Flow_5">
-
-
-      <di:waypoint x="560" y="320"/><di:waypoint x="580" y="320"/></bpmndi:BPMNEdge>
+        <di:waypoint x="560" y="320" />
+        <di:waypoint x="580" y="320" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_6" bpmnElement="Flow_6">
-
-
-      <di:waypoint x="680" y="320"/><di:waypoint x="700" y="320"/></bpmndi:BPMNEdge>
+        <di:waypoint x="680" y="320" />
+        <di:waypoint x="700" y="320" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_8" bpmnElement="Flow_8">
-
-
-        <di:waypoint x="750" y="320"/><di:waypoint x="820" y="320"/><bpmndi:BPMNLabel>
-          <dc:Bounds x="775" y="300" width="60" height="14"/>
+        <di:waypoint x="750" y="320" />
+        <di:waypoint x="820" y="320" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="752" y="300" width="60" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_9" bpmnElement="Flow_9">
-
-
-      <di:waypoint x="920" y="320"/><di:waypoint x="940" y="320"/></bpmndi:BPMNEdge>
+        <di:waypoint x="920" y="320" />
+        <di:waypoint x="940" y="320" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_Flow_7" bpmnElement="Flow_7">
-
-
-
-
-        <di:waypoint x="725" y="345"/><di:waypoint x="725" y="390"/><di:waypoint x="365" y="390"/><di:waypoint x="365" y="145"/><bpmndi:BPMNLabel>
-          <dc:Bounds x="525" y="396" width="72" height="14"/>
+        <di:waypoint x="725" y="345" />
+        <di:waypoint x="725" y="390" />
+        <di:waypoint x="365" y="390" />
+        <di:waypoint x="365" y="145" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="525" y="396" width="72" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

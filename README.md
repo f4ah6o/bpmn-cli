@@ -129,7 +129,7 @@ bpmn validate approval.bpmn
 ## bpmn-cli 自身のワークフロー
 
 クイックスタートの流れを BPMN で表すと次のようになります。
-この SVG は bpmn-cli 自身の **bpmn export-svg** で生成しています。
+この SVG は bpmn-cli 自身の **bpmn export-svg** で生成し、**bpmn validate --style** で検証しています。
 
 ![bpmn-cli のワークフロー](docs/bpmn-cli-workflow.svg)
 
@@ -139,7 +139,7 @@ bpmn validate approval.bpmn
 図は README 用に見やすく配置してあり、再生成時は layout を実行せず export-svg だけを使います。
 
 ~~~bash
-bpmn validate docs/bpmn-cli-workflow.bpmn
+bpmn validate docs/bpmn-cli-workflow.bpmn --style
 bpmn export-svg docs/bpmn-cli-workflow.bpmn --output docs/bpmn-cli-workflow.svg --force
 ~~~
 
