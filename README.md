@@ -645,7 +645,7 @@ pnpm run typecheck
 テストは Node.js 組み込みの test runner を使い、ビルド済みの **dist/cli.js** を子プロセスとして実行します。
 
 ~~~bash
-node --test test/
+node --test test/*.test.js test/unit/*.test.js test/integration/*.test.js test/svg/*.test.js
 ~~~
 
 主な依存:
