@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+.pnpm-store/
+.pnpm-local/
+pnpm-debug.log*
+.test-tmp-*/
+.tmp-run*/
+*.tmp
+*.tgz

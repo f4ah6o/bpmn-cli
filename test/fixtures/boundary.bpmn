@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" name="Boundary Demo" isExecutable="false">
+    <bpmn:startEvent id="start" name="Start"/>
+    <bpmn:task id="work" name="Work"/>
+    <bpmn:boundaryEvent id="timeout" name="Timeout" attachedToRef="work"/>
+    <bpmn:task id="handler" name="Handler"/>
+    <bpmn:endEvent id="end" name="End"/>
+    <bpmn:endEvent id="timedOut" name="Timed Out"/>
+    <bpmn:sequenceFlow id="F1" sourceRef="start" targetRef="work"/>
+    <bpmn:sequenceFlow id="F2" sourceRef="work" targetRef="end"/>
+    <bpmn:sequenceFlow id="F3" sourceRef="timeout" targetRef="handler"/>
+    <bpmn:sequenceFlow id="F4" sourceRef="handler" targetRef="timedOut"/>
+  </bpmn:process>
+</bpmn:definitions>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_A" name="A" isExecutable="false">
+    <bpmn:startEvent id="startA" name="Start A">
+      <bpmn:outgoing>flowA</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="endA" name="End A">
+      <bpmn:incoming>flowA</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="flowA" sourceRef="startA" targetRef="endA" />
+  </bpmn:process>
+  <bpmn:process id="Process_B" name="B" isExecutable="false">
+    <bpmn:startEvent id="startB" name="Start B">
+      <bpmn:outgoing>flowB</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="endB" name="End B">
+      <bpmn:incoming>flowB</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="flowB" sourceRef="startB" targetRef="endB" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Process_A">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_A" bpmnElement="Process_A">
+      <bpmndi:BPMNShape id="BPMNShape_startA" bpmnElement="startA">
+        <dc:Bounds x="80" y="80" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="71" y="121" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_endA" bpmnElement="endA">
+        <dc:Bounds x="216" y="80" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="214" y="121" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_flowA" bpmnElement="flowA">
+        <di:waypoint x="116" y="98" />
+        <di:waypoint x="216" y="98" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

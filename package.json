@@ -1,0 +1,45 @@
+{
+  "name": "bpmn-cli",
+  "version": "0.2.0",
+  "description": "Command-line BPMN 2.0 authoring, layout, SVG export, and validation tool",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.28.5",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "bpmn": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build-svg-runtime.mjs",
+    "postbuild": "node scripts/postbuild.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "pnpm run build && node --test test/",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "1.1.0",
+    "bpmn-auto-layout": "2.0.0-alpha.2",
+    "bpmn-js": "18.31.1",
+    "bpmn-moddle": "^10.3.1",
+    "bpmnlint": "^12.0.0",
+    "commander": "^15.0.0",
+    "diagram-js": "15.28.1",
+    "svgdom": "0.1.29"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "@types/node": "^26.0.0",
+    "@xmldom/xmldom": "0.9.12",
+    "esbuild": "0.28.2",
+    "pixelmatch": "8.0.0",
+    "pngjs": "7.0.0",
+    "typescript": "~5.9.3"
+  }
+}

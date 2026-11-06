@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:startEvent id="s" name="Start"/>
+    <bpmn:exclusiveGateway id="g" name="Decision" default="Fb"/>
+    <bpmn:task id="a" name="Approve"/>
+    <bpmn:task id="b" name="Reject"/>
+    <bpmn:endEvent id="e" name="End"/>
+    <bpmn:sequenceFlow id="F0" sourceRef="s" targetRef="g"/>
+    <bpmn:sequenceFlow id="Fa" sourceRef="g" targetRef="a">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">ok</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Fb" sourceRef="g" targetRef="b"/>
+    <bpmn:sequenceFlow id="Fae" sourceRef="a" targetRef="e"/>
+    <bpmn:sequenceFlow id="Fbe" sourceRef="b" targetRef="e"/>
+  </bpmn:process>
+</bpmn:definitions>

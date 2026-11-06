@@ -1,0 +1,4 @@
+allowBuilds:
+  esbuild: true
+overrides:
+  diagram-js: 15.28.1
