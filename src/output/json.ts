@@ -4,7 +4,7 @@ import { TOOL } from '../version.js';
 
 export function successEnvelope(
   command: string,
-  file: string,
+  file: string | null,
   payload: Record<string, unknown>
 ): Record<string, unknown> {
   return {

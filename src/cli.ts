@@ -9,6 +9,7 @@ import { runLayout } from './commands/layout.js';
 import { runList } from './commands/list.js';
 import { runRemove } from './commands/remove.js';
 import { runRename } from './commands/rename.js';
+import { runSkill } from './commands/skill.js';
 import { runUpdate } from './commands/update.js';
 import { runValidate } from './commands/validate.js';
 import { EXIT_USAGE, CliError, toCliError } from './errors.js';
@@ -32,7 +33,8 @@ const COMMANDS = new Set([
   'list',
   'layout',
   'export-svg',
-  'validate'
+  'validate',
+  'skill'
 ]);
 
 let context: RunContext = {
@@ -87,6 +89,11 @@ function buildProgram(): Command {
     .version(TOOL_VERSION, '-V, --version')
     .showHelpAfterError()
     .exitOverride();
+
+  program.addHelpText(
+    'after',
+    '\nRun "bpmn skill" to print the BPMN authoring skill for AI agents.\n'
+  );
 
   program
     .command('init')
@@ -236,6 +243,14 @@ function buildProgram(): Command {
       await runAction('validate', file, options.format, () =>
         runValidate(file, options)
       );
+    });
+
+  program
+    .command('skill')
+    .description('Print BPMN authoring guidance for AI agents')
+    .option('--format <format>', 'output format: text or json', 'text')
+    .action(async (options) => {
+      await runAction('skill', null, options.format, () => runSkill(options));
     });
 
   return program;

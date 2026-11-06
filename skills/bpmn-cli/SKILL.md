@@ -5,6 +5,13 @@ description: Use this skill when authoring, editing, validating, laying out, or 
 
 # bpmn-cli authoring skill
 
+The installed CLI prints this document with:
+
+~~~bash
+bpmn skill
+bpmn skill --format json
+~~~
+
 ## Scope
 
 This skill covers generic BPMN 2.0 authoring with **bpmn-cli**:

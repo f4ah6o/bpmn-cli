@@ -13,6 +13,7 @@
 - **bpmn layout** で図形座標と BPMN DI を自動生成する
 - **bpmn validate** で bpmnlint と独自の参照整合性検査を実行する
 - **bpmn validate --style** で図の読みやすさ（フロー方向、交差、重なり、デフォルトフロー）を検査する
+- **bpmn skill** で AI エージェント向けの作図ガイドを出力する
 - **bpmn export-svg** で bpmn-js と同じ SVG をブラウザレスで出力する
 - すべてのコマンドが **--format json** に対応する
 - 終了コードとエラー形式が固定されている
@@ -157,6 +158,7 @@ bpmn export-svg docs/bpmn-cli-workflow.bpmn --output docs/bpmn-cli-workflow.svg 
 | **bpmn layout** | 自動レイアウトと DI 生成 |
 | **bpmn export-svg** | bpmn-js 互換の SVG をブラウザレスで生成 |
 | **bpmn validate** | 構文・意味・参照整合性の検証 |
+| **bpmn skill** | AI エージェント向け BPMN 作図ガイドを出力 |
 
 すべてのコマンドに **--format text|json** があります。デフォルトは **text** です。
 JSON モードでは stdout に JSON だけを出力し、警告も JSON 内の **warnings** に含めます。
@@ -433,6 +435,26 @@ bpmn validate approval.bpmn --style --format json
 - 図の読みやすさの詳細は [SKILL.md](skills/bpmn-cli/SKILL.md) にまとめています。
 - ルールの背景は Camunda の [Creating readable process models](https://docs.camunda.io/docs/components/best-practices/modeling/creating-readable-process-models/) を参照してください。
 - Camunda 公式の Camunda 8 向け skill は [camunda/skills](https://github.com/camunda/skills/blob/main/skills/camunda-bpmn/SKILL.md) にあります。bpmn-cli は汎用 BPMN 2.0 向けで、Zeebe 拡張や c8ctl は扱いません。
+
+### skill
+
+~~~bash
+bpmn skill
+bpmn skill --format json
+~~~
+
+AI エージェント向けの BPMN 作図ガイドを出力します。
+内容は [skills/bpmn-cli/SKILL.md](skills/bpmn-cli/SKILL.md) が single source of truth です。
+
+- **bpmn skill**: SKILL.md をそのまま stdout に出力する
+- **--format json**: 次の情報を JSON で返す
+  - skill.name
+  - skill.path
+  - skill.bytes
+  - skill.content
+  - file は null
+- **bpmn --help** の末尾に短い案内を表示する（本文は help に埋め込まない）
+- npm パッケージにも skills/bpmn-cli/SKILL.md を含める
 
 ## 終了コード
 

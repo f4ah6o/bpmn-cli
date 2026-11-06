@@ -12,7 +12,8 @@ export type CommandName =
   | 'list'
   | 'layout'
   | 'export-svg'
-  | 'validate';
+  | 'validate'
+  | 'skill';
 
 export type DiagnosticSource = 'parse' | 'layout' | 'cli' | 'render';
 export type FindingSource = 'lint' | 'structural' | 'parse' | 'style';
