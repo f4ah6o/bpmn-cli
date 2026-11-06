@@ -230,6 +230,7 @@ function buildProgram(): Command {
     .argument('<file>', 'BPMN file to validate')
     .option('--config <path>', 'bpmnlint configuration JSON file')
     .option('--no-lint', 'skip bpmnlint rules')
+    .option('--style', 'include BPMN diagram style checks')
     .option('--format <format>', 'output format: text or json', 'text')
     .action(async (file: string, options) => {
       await runAction('validate', file, options.format, () =>

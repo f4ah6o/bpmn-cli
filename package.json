@@ -34,7 +34,8 @@
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
     "docs/bpmn-cli-workflow.bpmn",
-    "docs/bpmn-cli-workflow.svg"
+    "docs/bpmn-cli-workflow.svg",
+    "skills/bpmn-cli/SKILL.md"
   ],
   "publishConfig": {
     "access": "public"

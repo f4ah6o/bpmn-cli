@@ -12,6 +12,7 @@
 - 条件式とデフォルトフローを扱える
 - **bpmn layout** で図形座標と BPMN DI を自動生成する
 - **bpmn validate** で bpmnlint と独自の参照整合性検査を実行する
+- **bpmn validate --style** で図の読みやすさ（フロー方向、交差、重なり、デフォルトフロー）を検査する
 - **bpmn export-svg** で bpmn-js と同じ SVG をブラウザレスで出力する
 - すべてのコマンドが **--format json** に対応する
 - 終了コードとエラー形式が固定されている
@@ -371,6 +372,7 @@ bpmn validate <file> [options]
 |---|---|
 | **--config <path>** | bpmnlint 設定 JSON。デフォルト設定を置き換える |
 | **--no-lint** | bpmnlint を実行せず、構造チェックだけを行う |
+| **--style** | 図の読みやすさを検査する（warning / info のみ） |
 
 - error が 1 件以上なら終了コード 1、warning のみなら 0 です。
 - ファイルは変更しません。
@@ -406,6 +408,31 @@ bpmnlint の **recommended** を継承し、次の 2 ルールだけを **warn**
 
 BPMN の incoming / outgoing 要素は省略可能ですが、bpmnlint と bpmn-auto-layout はこれらを参照します。
 validate と layout の内部では、シーケンスフローから incoming / outgoing を再構築してから処理します。
+
+#### 作図スタイル（--style）
+
+~~~bash
+bpmn validate approval.bpmn --style
+bpmn validate approval.bpmn --style --format json
+~~~
+
+**--style** は、Camunda の「読みやすいプロセスモデル」に基づく図の検査を追加します。
+指摘は warning / info のみで、終了コードは変わりません。
+
+| ルール | 内容 |
+|---|---|
+| **style/flow-direction** | ループ以外のシーケンスフローが右から左へ流れている |
+| **style/flow-crossing** | 異なるシーケンスフローの線分が交差している |
+| **style/element-overlap** | フローノードの図形が重なっている |
+| **style/gateway-default** | 複数の outgoing を持つ排他/包含ゲートウェイにデフォルトフローがない |
+| **style/no-di** | DI がないため style のジオメトリ検査を実行できない（info） |
+
+- 検査には BPMN DI が必要です。先に **bpmn layout** を実行してください。
+- ループの戻り辺は **style/flow-direction** の対象外です。
+- bpmnlint と併用する場合は **--style** だけを追加します。**--no-lint** と併用すれば style だけを実行できます。
+- 図の読みやすさの詳細は [SKILL.md](skills/bpmn-cli/SKILL.md) にまとめています。
+- ルールの背景は Camunda の [Creating readable process models](https://docs.camunda.io/docs/components/best-practices/modeling/creating-readable-process-models/) を参照してください。
+- Camunda 公式の Camunda 8 向け skill は [camunda/skills](https://github.com/camunda/skills/blob/main/skills/camunda-bpmn/SKILL.md) にあります。bpmn-cli は汎用 BPMN 2.0 向けで、Zeebe 拡張や c8ctl は扱いません。
 
 ## 終了コード
 

@@ -15,7 +15,7 @@ export type CommandName =
   | 'validate';
 
 export type DiagnosticSource = 'parse' | 'layout' | 'cli' | 'render';
-export type FindingSource = 'lint' | 'structural' | 'parse';
+export type FindingSource = 'lint' | 'structural' | 'parse' | 'style';
 export type Severity = 'error' | 'warning' | 'info';
 
 export interface Diagnostic {

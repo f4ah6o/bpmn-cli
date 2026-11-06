@@ -12,6 +12,7 @@ import { parseFormat } from './shared.js';
 export interface ValidateCliOptions {
   config?: string;
   lint?: boolean;
+  style?: boolean;
   format?: string;
 }
 
@@ -24,7 +25,8 @@ export async function runValidate(
 
   const result = await validateDocument(doc, {
     configPath: options.config,
-    noLint: options.lint === false
+    noLint: options.lint === false,
+    style: options.style === true
   });
 
   const valid = result.summary.errors === 0;

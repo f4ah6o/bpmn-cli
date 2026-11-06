@@ -10,6 +10,7 @@ import { collectIds } from './ids.js';
 import { isType } from './moddle.js';
 import { rawRefId, valueId } from './model.js';
 import { reconcileFlowReferences } from './references.js';
+import { styleFindings } from './style.js';
 
 const require = createRequire(import.meta.url);
 
@@ -599,6 +600,7 @@ async function lintFindings(
 export interface ValidateOptions {
   configPath?: string;
   noLint: boolean;
+  style?: boolean;
 }
 
 export interface ValidationResult {
@@ -624,6 +626,10 @@ export async function validateDocument(
 
     reconcileFlowReferences(doc.index);
     findings.push(...(await lintFindings(doc, config)));
+  }
+
+  if (options.style) {
+    findings.push(...styleFindings(doc));
   }
 
   const severityRank: Record<Severity, number> = {
