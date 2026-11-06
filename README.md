@@ -19,7 +19,7 @@
 ## 必要環境
 
 - Node.js 24 以上（bpmnlint 12 の要件。開発・テストは Node.js 26 で確認済み）
-- pnpm 11.28.5（package.json の packageManager で固定）
+- pnpm 11.28.5 以上（package.json の packageManager は 11.28.5。12.18.0 でも動作確認済み）
 
 ## インストールとビルド
 
@@ -37,9 +37,21 @@ node dist/cli.js --help
 グローバルに **bpmn** コマンドとして使う場合:
 
 ~~~bash
-pnpm link --global
+# pnpm 12 では "pnpm link --global" は廃止されています。
+# ローカルパッケージをグローバルに追加します。
+pnpm setup      # 初回のみ。global bin を PATH に追加
+pnpm add -g .
 bpmn --help
 ~~~
+
+**pnpm link --global** は pnpm 10/11 の旧構文です。pnpm 12 では次のように失敗します。
+
+~~~text
+error: unexpected argument '--global' found
+~~~
+
+**pnpm setup** の後に **bpmn** が見つからない場合は、シェルを再起動するか、
+**pnpm bin -g** が返すディレクトリを PATH に追加してください。
 
 pnpm の store が読み取り専用の環境では、書き込み可能なディレクトリを指定してください:
 
