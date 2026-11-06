@@ -454,7 +454,7 @@ bpmn validate approval.bpmn --style --format json
 ~~~json
 {
   "schemaVersion": 1,
-  "tool": { "name": "bpmn-cli", "version": "0.2.0" },
+  "tool": { "name": "bpmn-cli", "version": "0.3.0" },
   "ok": true,
   "command": "add",
   "file": "approval.bpmn",
@@ -527,7 +527,7 @@ bpmn validate approval.bpmn --style --format json
 ~~~json
 {
   "schemaVersion": 1,
-  "tool": { "name": "bpmn-cli", "version": "0.2.0" },
+  "tool": { "name": "bpmn-cli", "version": "0.3.0" },
   "ok": false,
   "command": "validate",
   "file": "approval.bpmn",
@@ -551,7 +551,7 @@ bpmn validate approval.bpmn --style --format json
 ~~~json
 {
   "schemaVersion": 1,
-  "tool": { "name": "bpmn-cli", "version": "0.2.0" },
+  "tool": { "name": "bpmn-cli", "version": "0.3.0" },
   "ok": true,
   "command": "export-svg",
   "file": "approval.bpmn",
@@ -576,7 +576,7 @@ bpmn validate approval.bpmn --style --format json
 ~~~json
 {
   "schemaVersion": 1,
-  "tool": { "name": "bpmn-cli", "version": "0.2.0" },
+  "tool": { "name": "bpmn-cli", "version": "0.3.0" },
   "ok": false,
   "command": "add",
   "file": "approval.bpmn",
@@ -724,7 +724,7 @@ npm trust github @f12o/bpmn-cli \
 ## バージョン方針
 
 - npm パッケージ名は **@f12o/bpmn-cli**、CLI の実行名は **bpmn** です。
-- リポジトリ内の開発版は 0.2.0 で、リリース時に CalVer へ更新します。
+- リポジトリ内の開発版は 0.3.0 で、リリース時に CalVer へ更新します。
 - CLI のバージョンは package.json の version を実行時に読みます。
 - v0.2 のスコープは README 記載のとおりです。破壊的変更は --force を伴う操作に限定しています。
 - bpmn-js / diagram-js / svgdom / @napi-rs/canvas は SVG 出力の再現性のため固定バージョンを使います。

@@ -1,6 +1,6 @@
 {
   "name": "@f12o/bpmn-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Command-line BPMN 2.0 authoring, layout, SVG export, and validation tool",
   "author": "f4ah6o",
   "license": "MIT",
