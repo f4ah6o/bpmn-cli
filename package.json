@@ -1,21 +1,44 @@
 {
-  "name": "bpmn-cli",
+  "name": "@f12o/bpmn-cli",
   "version": "0.2.0",
   "description": "Command-line BPMN 2.0 authoring, layout, SVG export, and validation tool",
-  "private": true,
+  "author": "f4ah6o",
+  "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@11.28.5",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f4ah6o/bpmn-cli.git"
+  },
+  "homepage": "https://github.com/f4ah6o/bpmn-cli#readme",
+  "bugs": {
+    "url": "https://github.com/f4ah6o/bpmn-cli/issues"
+  },
+  "keywords": [
+    "bpmn",
+    "bpmn-js",
+    "bpmn-moddle",
+    "bpmnlint",
+    "svg",
+    "cli"
+  ],
   "engines": {
     "node": ">=24"
   },
   "bin": {
-    "bpmn": "./dist/cli.js"
+    "bpmn": "dist/cli.js"
   },
   "files": [
     "dist",
     "README.md",
-    "THIRD_PARTY_NOTICES.md"
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "docs/bpmn-cli-workflow.bpmn",
+    "docs/bpmn-cli-workflow.svg"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/build-svg-runtime.mjs",
     "postbuild": "node scripts/postbuild.mjs",

@@ -1,0 +1,93 @@
+name: Release npm package
+
+on:
+  push:
+    tags:
+      - latest
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: npm-release-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Verify release source belongs to main
+        env:
+          SOURCE_BRANCH: main
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/heads/${SOURCE_BRANCH}:refs/remotes/origin/${SOURCE_BRANCH}"
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" "origin/${SOURCE_BRANCH}"; then
+            echo "::error::Release source $GITHUB_SHA is not in origin/${SOURCE_BRANCH} history."
+            exit 1
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Install npm with trusted publishing support
+        run: npm install --global npm@11
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.28.5
+          run_install: false
+
+      - name: Allocate CalVer
+        id: calver
+        uses: f4ah6o/calver-action@dfd57cf474631b778e41478cbb183b34bd487545
+        with:
+          format: YYYY.MM.PATCH
+          timezone: Asia/Tokyo
+          create_tag: false
+
+      - name: Set package version
+        env:
+          VERSION: ${{ steps.calver.outputs.version }}
+        run: node scripts/set-version.mjs "$VERSION"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build and test
+        run: pnpm test
+
+      - name: Check package contents
+        run: npm pack --dry-run
+
+      - name: Commit release metadata
+        env:
+          VERSION: ${{ steps.calver.outputs.version }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "chore: release @f12o/bpmn-cli $VERSION"
+
+      - name: Publish to npm with Trusted Publishing
+        run: npm publish --access public
+
+      - name: Push immutable CalVer tag
+        env:
+          TAG: ${{ steps.calver.outputs.tag }}
+        run: |
+          set -euo pipefail
+          git tag "$TAG"
+          git push origin "refs/tags/$TAG"

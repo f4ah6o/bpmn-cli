@@ -1,5 +1,7 @@
 # bpmn-cli
 
+[![npm](https://img.shields.io/npm/v/@f12o/bpmn-cli.svg)](https://www.npmjs.com/package/@f12o/bpmn-cli)
+
 標準 BPMN 2.0 XML をターミナルから作成・編集・検証・自動レイアウトし、bpmn-js と同一の SVG をブラウザレスで出力する CLI です。
 論理構造（BPMN 要素）と図形情報（BPMN DI）を分離し、DI は **bpmn layout** を実行したときだけ生成します。
 出力は Camunda Modeler / bpmn-js などで開ける標準 BPMN 2.0 です。
@@ -22,6 +24,21 @@
 - pnpm 11.28.5 以上（package.json の packageManager は 11.28.5。12.18.0 でも動作確認済み）
 
 ## インストールとビルド
+
+npm レジストリからグローバルにインストールする場合:
+
+~~~bash
+npm install -g @f12o/bpmn-cli
+~~~
+
+pnpm を使う場合:
+
+~~~bash
+pnpm setup      # 初回のみ。global bin を PATH に追加
+pnpm add -g @f12o/bpmn-cli
+~~~
+
+リポジトリからビルドする場合:
 
 ~~~bash
 pnpm install
@@ -107,6 +124,23 @@ bpmn validate approval.bpmn
 ~~~
 
 シェルでは条件式を必ず引用してください。BPMN の式として **${...}** 形式を使う場合も、シェル側の展開を防ぐためにシングルクォートで囲むのが安全です。
+
+## bpmn-cli 自身のワークフロー
+
+クイックスタートの流れを BPMN で表すと次のようになります。
+この SVG は bpmn-cli 自身の **bpmn export-svg** で生成しています。
+
+![bpmn-cli のワークフロー](docs/bpmn-cli-workflow.svg)
+
+[BPMN ソース](docs/bpmn-cli-workflow.bpmn)
+
+基本ワークフローの例であり、全コマンドの分岐や内部実装を網羅するものではありません。
+図は README 用に見やすく配置してあり、再生成時は layout を実行せず export-svg だけを使います。
+
+~~~bash
+bpmn validate docs/bpmn-cli-workflow.bpmn
+bpmn export-svg docs/bpmn-cli-workflow.bpmn --output docs/bpmn-cli-workflow.svg --force
+~~~
 
 ## コマンド一覧
 
@@ -615,9 +649,55 @@ SVG の同一性テストは **test/fixtures/svg/** にあります。参照 SVG
 
 **pnpm run build** は TypeScript のビルド後に **scripts/build-svg-runtime.mjs** を実行し、bpmn-js を **dist/svg-runtime.mjs** へバンドルします。このファイルは配布物に含まれます。
 
+## リリース
+
+npm パッケージは **@f12o/bpmn-cli** として公開します。
+リリース版のバージョンは **CalVer（YYYY.MM.PATCH）** で、GitHub Actions から npm の **Trusted Publishing（OIDC）** を使って公開します。リポジトリに npm トークンは置きません。
+
+- リリース元: main の履歴に含まれるコミット
+- トリガー: **latest** タグの push
+- バージョン: calver-action が Asia/Tokyo の日付から採番
+- 公開: .github/workflows/release.yaml
+- 公開前に **pnpm test** と **npm pack --dry-run** を実行
+
+通常のリリース:
+
+~~~bash
+git tag -f latest <commit-to-release>
+git push -f origin latest
+~~~
+
+### 初回だけ必要な作業
+
+npm の trusted publisher は、パッケージが registry に存在してから設定します。
+初回だけは npm にログインして手動で publish し、その後で trusted publisher を登録します。
+
+~~~bash
+npm login
+git switch -c release/2026.11.0
+node scripts/set-version.mjs 2026.11.0
+pnpm test
+npm publish --access public
+
+git add package.json
+git commit -m "chore: release @f12o/bpmn-cli 2026.11.0"
+git tag 2026.11.0
+git push origin 2026.11.0
+git switch main
+
+npm trust github @f12o/bpmn-cli \
+  --file release.yaml \
+  --repo f4ah6o/bpmn-cli \
+  --allow-publish \
+  -y
+~~~
+
+初回のバージョンは実行日時の CalVer に合わせてください。npm trust には npm 11.15 以上と 2FA が必要です。
+
 ## バージョン方針
 
-- package.json は **private: true** で、レジストリ公開は想定していません。
+- npm パッケージ名は **@f12o/bpmn-cli**、CLI の実行名は **bpmn** です。
+- リポジトリ内の開発版は 0.2.0 で、リリース時に CalVer へ更新します。
 - CLI のバージョンは package.json の version を実行時に読みます。
 - v0.2 のスコープは README 記載のとおりです。破壊的変更は --force を伴う操作に限定しています。
 - bpmn-js / diagram-js / svgdom / @napi-rs/canvas は SVG 出力の再現性のため固定バージョンを使います。

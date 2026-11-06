@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import {
@@ -8,6 +9,10 @@ import {
   runCli,
   tempDir
 } from '../helpers/cli.js';
+
+const packageVersion = JSON.parse(
+  await readFile(join(ROOT, 'package.json'), 'utf8')
+).version;
 
 test('init and add return the documented JSON envelope', async (t) => {
   const dir = await tempDir(t);
@@ -27,7 +32,7 @@ test('init and add return the documented JSON envelope', async (t) => {
   const created = parseJson(init);
   assert.equal(created.schemaVersion, 1);
   assert.equal(created.tool.name, 'bpmn-cli');
-  assert.equal(created.tool.version, '0.2.0');
+  assert.equal(created.tool.version, packageVersion);
   assert.equal(created.ok, true);
   assert.equal(created.command, 'init');
   assert.equal(created.file, file);
@@ -178,7 +183,7 @@ test('unknown commands respect JSON mode', async () => {
 test('help and version exit successfully', async () => {
   const version = await runCli(['--version']);
   assert.equal(version.code, 0);
-  assert.equal(version.stdout.trim(), '0.2.0');
+  assert.equal(version.stdout.trim(), packageVersion);
 
   const help = await runCli(['--help']);
   assert.equal(help.code, 0);
