@@ -49,6 +49,11 @@ jobs:
           version: 11.28.5
           run_install: false
 
+      - name: Install fonts for SVG parity tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-liberation
+
       - name: Allocate CalVer
         id: calver
         uses: f4ah6o/calver-action@dfd57cf474631b778e41478cbb183b34bd487545
